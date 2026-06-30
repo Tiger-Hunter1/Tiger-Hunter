@@ -1,0 +1,34 @@
+package main
+
+import (
+       "fmt"
+       "os"
+       "os/exec"
+)
+
+func main() {
+        cmd := exec.Command("clear")
+        cmd.Stdout = os.Stdout
+        cmd.Run()
+
+        fmt.Println("=================================")
+        fmt.Println("[+]  GO-LANG IF-ELSE LAB ACTIVE   )
+        fmt.Println("=================================")
+
+        ip := "192.168.0.192"
+
+        fmt.Println("[*] Live ip Connection:", ip)
+        fmt.Println("===========================")
+
+        if ip == "192.168.0.192" {
+            fmt.Println("[!] ALRET: VPN OR PORNO TAFFIC DECETECD>
+            fmt.Println("[!] ACTION: PACKET DROPPED PORT BLOCKED>
+        } else if ip == "10.0.0.9" {
+            fmt.Println("[!] WARNING: SUSPICIOUS TRAFFIC PATTERN>
+            fmt.Println("[-] ACTION: ROUTING TO ISOLATION LAB.")
+        } else {
+            fmt.Println("[+] SUCCESS: SAFE TRAFFIC PACKET.")
+            fmt.Println("[+] ACTION: TRANSMISSION ALLOWED.")
+        }
+        fmt.Println("=========================================")
+}
