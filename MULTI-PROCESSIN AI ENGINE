@@ -3,6 +3,7 @@ import time
 import os
 
 def ai_heavy_cpu_task(core_name, dataset_size):
+    pid = os.getpid()
     print(f"[*] [{core_name}] Process Active! Rnning on CPU PID: {pid} for Dataset: {dataset_size}")
     
     time.sleep(3)
