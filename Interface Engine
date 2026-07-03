@@ -1,0 +1,64 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"os/exec"
+)
+
+// 🚀 ১. মাস্টার সিকিউরিটি সংবিধান বা কন্ট্রাক্ট তৈরি করা (Interface)
+// দুনিয়ার যে রোবটই এই 'TrafficFilter' ইন্টারফেসের নিয়ম মানবে, তার ভেতর অবশ্যই 'ApplyFilter()' মেথড থাকতে হবে
+type TrafficFilter interface {
+	ApplyFilter() string
+}
+
+// ২. আমাদের ১ম সিকিউরিটি রোবটের ছাঁচ (Porn Router)
+type PornRouter struct {
+	DomainName string
+}
+// ১ম রোবটের নিজস্ব মেথড বা বাটন
+func (p PornRouter) ApplyFilter() string {
+	return "[!] ALERT [Porn-Router]: Blocked Domain -> " + p.DomainName
+}
+
+// ৩. আমাদের ২য় সিকিউরিটি রোবটের ছাঁচ (VPN Guard)
+type VPNGuard struct {
+	ProxyIP string
+}
+// ২য় রোবটের নিজস্ব মেথড বা বাটন (একই নামের কমন বাটন)
+func (v VPNGuard) ApplyFilter() string {
+	return "[!] ALERT [VPN-Guard]: Dropped Connection from Proxy IP -> " + v.ProxyIP
+}
+
+// 🚀 ৪. মেইন সেন্ট্রাল ফায়ারওয়াল ফায়ারিং ইঞ্জিন
+// এই ফাংশনটি কোনো নির্দিষ্ট রোবট চেনে না, সে শুধু চেনে কমন 'TrafficFilter' ইন্টারফেসকে!
+func triggerSecurityGate(filter TrafficFilter) {
+	// ইন্টারফেসের কমন কন্ট্রাক্ট বাটন এক শটে ফায়ার করা
+	fmt.Println("  [->] Live Firewall Action:", filter.ApplyFilter())
+}
+
+func main() {
+	// ৫. লিনাক্স স্ক্রিন পরিষ্কার করা
+	cmd := exec.Command("clear")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
+
+	fmt.Println("=========================================")
+	fmt.Println("[+] GO-LANG INTERFACES: MULTI-GATE LAB   ")
+	fmt.Println("=========================================")
+
+	// ৬. ছাঁচ থেকে ২টা সম্পূর্ণ আলাদা জ্যান্ত রোবট বা অবজেক্ট তৈরি করা
+	robot1 := PornRouter{DomainName: "unsafe_porn_domain.com"}
+	robot2 := VPNGuard{ProxyIP: "192.168.1.99"}
+
+	fmt.Println("[*] Triggering Gate 1 (Domain Inspection):")
+	// ইন্টারফেস ইঞ্জিন দিয়ে ১ম রোবট সচল করা
+	triggerSecurityGate(robot1)
+	fmt.Println("-" * 55)
+
+	fmt.Println("[*] Triggering Gate 2 (IP Proxy Interception):")
+	// একই ইন্টারফেস ইঞ্জিন দিয়ে ২য় রোবট সচল করা
+	triggerSecurityGate(robot2)
+	
+	fmt.Println("=========================================")
+}
