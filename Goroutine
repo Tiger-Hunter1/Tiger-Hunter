@@ -1,0 +1,58 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"os/exec"
+	"time"
+)
+
+// ১. আমাদের মেইন এআই ফায়ারওয়াল স্ক্যানার ফাংশন
+func aiAsyncScanner(gatewayID string, targetIP string) {
+	fmt.Printf("[*] [%s] Deep Scanner Activated for IP: %s\n", gatewayID, targetIP)
+	
+	// ছবির পিক্সেল বা ভিপিএন প্যাকেট এক্স-রে করতে ৩ সেকেন্ড সময় লাগছে
+	time.Sleep(3 * time.Second)
+	
+	if targetIP == "192.168.1.5" {
+		fmt.Printf("\n[!] ALERT [%s]: PORNO/VPN DETECTED on %s! PACKET WIPED!\n", gatewayID, targetIP)
+	} else {
+		fmt.Printf("\n[+] SUCCESS [%s]: %s is CLEAN. ACCESS ALLOWED.\n", gatewayID, targetIP)
+	}
+}
+
+func main() {
+	// ২. লিনাক্স স্ক্রিন পরিষ্কার করা
+	cmd := exec.Command("clear")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
+
+	fmt.Println("=========================================")
+	fmt.Println("[+] GO-LANG GOROUTINES: ULTRA-SPEED LAB  ")
+	fmt.Println("=========================================")
+
+	startTime := time.time()
+
+	fmt.Println("[*] Deploying 3 Security Gateways AT THE SAME TIME...")
+	print("-" * 55)
+
+	// 🚀 ৩. গোরুটিন ফায়ার করার সেই মোস্ট ওয়ান্টেড কিলার সিনট্যাক্স!
+	// যেকোনো ফাংশনের নামের শুরুতে জাস্ট 'go' শব্দটি লিখে দিলেই 
+	// গো-ল্যাং ওই কাজটিকে মেইন লাইনে আটকে না রেখে, ব্যাকগ্রাউন্ডে সম্পূর্ণ স্বাধীন লাইনে ফায়ার করে দেয়!
+	go aiAsyncScanner("BD-Core-01", "8.8.8.8")
+	go aiAsyncScanner("VPN-Block-02", "192.168.1.5")
+	go aiAsyncScanner("Sovereign-03", "142.251.221.206")
+
+	// ৪. যেহেতু গোরুটিনগুলো ব্যাকগ্রাউন্ডে রকেটের স্পিডে চলছে, 
+	// মেইন কোড যেন তাদের কাজ শেষ হওয়ার আগেই ফাইল থেকে বের না হয়ে যায়, 
+	// তাই আমরা মেইন ইঞ্জিনকে সাময়িকভাবে ৩.৫ সেকেন্ড হোল্ড করে রাখলাম।
+	time.Sleep(3500 * time.Millisecond)
+
+	endTime := time.time()
+	totalDuration := endTime - startTime
+
+	fmt.Println("-" * 55)
+	fmt.Printf("[+] Total Processing Time for ALL 3 IPs: %.2f seconds!\n", totalDuration.Seconds())
+	fmt.Println("[+] System Status: Millions of Traffic Handled via Goroutines GRID!")
+	fmt.Println("=========================================")
+}
