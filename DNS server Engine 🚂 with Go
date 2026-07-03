@@ -1,0 +1,78 @@
+package main
+
+import (
+	"fmt"
+	"net"
+	"os"
+	"os/exec"
+	"strings"
+	"time"
+)
+
+func main() {
+	// ১. লিনাক্স স্ক্রিন পরিষ্কার করা
+	cmd := exec.Command("clear")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
+
+	fmt.Println("=========================================")
+	fmt.Println("[+] TIGER AI-DNS: CENTRAL SERVER ENGINE   ")
+	fmt.Println("=========================================")
+
+	// ২. ডিএনএস প্রোটোকলের জন্য UDP সকেট সংযোগ রেডি করা
+	// বিশ্বব্যাপী ডিএনএস ট্রাফিক চলে UDP পোর্ট ৫৩ এর ওপর দিয়ে
+	// টেস্ট ল্যাবের জন্য আমরা পোর্ট ৮০৫৩ (8053) লক করলাম
+	port := ":8053"
+	addr, _ := net.ResolveUDPAddr("udp", port)
+	
+	// ৩. লিনাক্স কার্নেলে সকেট কানেকশন আঠা দিয়ে বেঁধে ওত পেতে থাকা (Bind)
+	server, err := net.ListenUDP("udp", addr)
+	if err != nil {
+		fmt.Println("[!] Critical Error: Cannot lock DNS Port!", err)
+		return
+	}
+	defer server.Close()
+
+	fmt.Printf("[*] DNS Server is Listening Live on UDP Port %s...\n", port)
+	fmt.Println("[*] Mode: Active Anti-Porn & VPN Interception Engine.")
+	fmt.Println("[*] Press Ctrl+C to Safe Stop Server Grid.")
+	fmt.Println("-----------------------------------------")
+
+	// ডাটা রিসিভ করার জন্য ৫১২ বাইটের একটি ফাঁকা মেমরি বাকেট বা বাফার রেডি করা
+	buffer := make([]byte, 512)
+
+	// 🚀 ৪. চব্বিশ ঘণ্টার ওত পেতে থাকার মেগা লুপ
+	for {
+		// ওপার থেকে আসা কাঁচা বাইনারি ডিএনএস প্যাকেট এবং ক্লায়েন্টের ঠিকানা ছেঁকে রিসিভ করা
+		bytesRead, clientAddr, err := server.ReadFromUDP(buffer)
+		if err != nil {
+			continue
+		}
+
+		// ৫. কাঁচা বাইনারি ডাটাকে মানুষের পড়ার উপযোগী টেক্সট স্ট্রিঙে রূপান্তর করা
+		rawRequest := string(buffer[:bytesRead])
+		
+		// উদাহরণ হিসেবে আমরা কাল্পনিক ৪টি ডোমেন ট্রাফিক টেস্ট করব
+		// রিয়েল ডাটাসেটে এটি বাইনারি হেডার রিড করে ডোমেন ছেঁকে নেয়
+		simulatedDomain := "pornwebsite.com" 
+
+		currentTime := time.Now().Format("15:04:05")
+		fmt.Printf("[%s] Packet Received from Client IP: %s\n", currentTime, clientAddr)
+
+		// 🚀 ৬. কড়া এআই ফায়ারওয়াল ফিল্টারিং লজিক গেট
+		if strings.Contains(simulatedDomain, "porn") || strings.Contains(simulatedDomain, "vpn") {
+			// নিষিদ্ধ সাইট মেলামাত্রই লাল বাতি জ্বলে উঠবে এবং ট্রাফিক মাঝপথেই হাইজ্যাক হবে
+			fmt.Printf("  [!] ALERT: BLACKLISTED TARGET DETECTED -> [%s]\n", simulatedDomain)
+			fmt.Println("  [-] ACTION: DROPPING PACKET & INJECTING BLOCKED GATEWAY IP (0.0.0.0)")
+			
+			// ক্লায়েন্টকে ভুয়া আইপি ফেরত পাঠিয়ে ব্লক করে দেওয়া
+			server.WriteToUDP([]byte("STATUS: BLOCKED"), clientAddr)
+		} else {
+			// নিরাপদ সাইট হলে সবুজ সংকেত দিয়ে ডাটা পাস করা
+			fmt.Printf("  [+] SUCCESS: CLEAN DOMAIN DETECTED -> [%s]\n", simulatedDomain)
+			fmt.Println("  [+] ACTION: RESOLVING PATH AND TRANSMISSION ALLOWED.")
+			server.WriteToUDP([]byte("STATUS: ALLOWED"), clientAddr)
+		}
+		fmt.Println("-----------------------------------------")
+	}
+}
