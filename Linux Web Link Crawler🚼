@@ -12,19 +12,19 @@ target_url = input("Enter Target Website:")
 print(f"[+]Fecthing Link From {target_url}...")
 print("-" * 40)
 
-headers = {"user_Agent": "Mozila/5.0 (windows NT 10.0; win64;>
+headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
 
 try:
-    response = requests.get(target_url, headers=headers, time>
+    response = requests.get(target_url, headers=headers, timeout=5.0)
 
     soup = BeautifulSoup(response.text, "html.parser")
 
-    links=soup.find_all("a")
+    links = soup.find_all("a")
 
-    print(f"[+] Found {len(links)} links kn the page:\n")
+    print(f"[+] Found {len(links)} links on the page:\n")
 
-    for links in links:
-      href = links.get("href")
+    for link in links:
+      href = link.get("href")
 
       if href:
          print(f"[->] Link: {href}")
