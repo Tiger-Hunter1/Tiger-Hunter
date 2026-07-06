@@ -1,0 +1,22 @@
+import scapy.all as scapy
+import os
+
+def process_packet(packet):
+    if packet.haslayer(scapy.Raw):
+       payload = packet[scapy.Raw].load
+       try:
+           data = payload.decode("utf8", errors="ignore")
+
+           if (
+              "user" in data.lower()
+               or "pass" in data.lower()
+               or "login" in data.lower()
+):
+               print("[*] Keyword found")
+               print("[!] potential Data Found!")
+
+
+       except Exception as e:
+           print(f"[!]An error occurred: {e}")
+
+scapy.sniff(prn=process_packet, store=False)
