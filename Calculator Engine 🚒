@@ -1,0 +1,49 @@
+import os
+
+os.system("clear")
+print("=" * 40)
+print("[+] Y4- POJECT: TIGER PYTHON CULCULUTOR")
+print("=" * 40)
+
+try:
+    num1 = float(input("[+] Enter Frist Number: ").strip())
+    num2 = float(input("[+] Enter Second Number: ").strip())
+
+    print("[+] Choose Mathmatical Logic Gate: ")
+    print("_" * 40)
+
+    print(" [1] Addition (+)")
+    print(" [2] Subtraction (-)")
+    print(" [3] Multiplication (*)")
+    print(" [4] Division (/)")
+
+    choice = input("/n[*] selection Operation (1-4): ").strip()
+
+    if choice == "1":
+        result = num1 + num2
+        print(f"[+] output [Addition] -> Result: {result}")
+
+    elif choice == "2":
+        result = num1 - num2
+        print(f"[-] output (Subtraction) -> {result}")
+
+    elif choice == "3":
+        result = num1 * num2
+        print(f"[*] output (Multiplication) -> Result: {result}")
+
+    elif choice == "4":
+        if num2 == 0:
+            print("[!] Cratical Logic Error: Division zero by Illegal")
+        else:
+            result = num1 / num2
+            print(f"[/] output (Divison) -> Result {result}")
+    else:
+         print("[!] Error Invalid Logic Selection")
+
+except ValueError:
+    print("\n[!] Input Error: enter Valid Numbers only")
+
+except Exception as e:
+    print(f"\n[!] System Error {e}")
+
+print("_" * 40)
