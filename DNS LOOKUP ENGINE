@@ -1,46 +1,83 @@
+
 import dns.resolver
 import socket
 import os
 
 os.system("clear")
-print("=========================================")
-print("[+] Y4-PROJECT: TIGER DNS LOOKUP ENGINE  ")
-print("=========================================")
+print("=" * 40)
+print("[+] Y4: POJECT TIGER DNS LOOKUP TOLL")
+print("=" * 40)
 
 try:
-    target_domain = input("[*] Enter Target Domain Name (e.g. google.com): ").strip()
-    print("-" * 55)
-    print(f"[*] Starting Global DNS Audit on Target: {target_domain}...\n")
+    domin_name = input("Enter Target Website Or Domin name: ")
+    print(f"[+] String Global Dns Server Audit on target {domin_name}")
+    print("_" * 40)
 
-    print("[+] [A RECORD] - Primary IPv4 Target Addresses:")
+    _, _, ip_list = socket.gethostbyname_ex(domin_name)
 
-    _, _, ip_list = socket.gethostbyname_ex(target_domain)
     for ip in ip_list:
-        print(f"  [->] Live Target IP: {ip}")
-    print("-" * 55)
 
-    print("[+] [MX RECORD] - Core Target Email Gateways:")
-    try:
-        mx_records = dns.resolver.resolve(target_domain, 'MX')
-        for data in mx_records:
-            print(f"  [->] Mail Server: {data.exchange} (Priority: {data.preference})")
-    except Exception:
-        print("  [-] No Active MX Records Found or Blocked.")
-    print("-" * 55)
+        print(f" [->] Live Target: {ip_list}")
+    print("_" * 40)
 
-    print("[+] [NS RECORD] - Authoritative Domain Name Servers:")
-    try:
-        ns_records = dns.resolver.resolve(target_domain, 'NS')
-        for data in ns_records:
-            print(f"  [->] Hosting Name Server: {data.target}")
+    print("[+] [MX-RECORD] -core Target Email Gateway")
+
+    try:                                                                                                                            mx_recode = resolver.resolve(domin_name, "MX")
+        for data in mx_recode:
+
+            print("[+] [->] Mail Server (data.exchange) (peorit:(data.prefernce")
     except Exception:
-        print("  [-] No Active NS Records Found or Firewalled.")
+        print("[!] MX Recode Server Not Found!")
+    print("_" * 40)
+
+    print("[+] [NS-RECODE] -core Target Aothuritetive Domin name")
+    try:
+        ns_recode = resolver.resolve(domin_name, "NS")
+        for data in ns_recode:
+            print(f"[+] [->] Hosting Name Server {data.domin}")
+    except Exception:
+        print("[!] NS Recode  File Server Not Found!")
+    print("_" * 40)
+
+    print("[+] [AAAA] Recode")
+    try:
+        aaaa_recode = dns.resolver.resolve(domin_name, "AAAA")                                                                      for data in aaaa_recode:
+            print(f"[+] -> {recode}")
+    except Exception:
+        print("[!] No aaaa File Recode")
+    print("_" * 40)
+
+    print("[+] file: [CNAME_RCODE]")
+    try:
+        cname_recode = dns.resolver.resolve(domin_name, "CNAME_RECODE")
+        for data in cname_recode:
+            print(f"[+] ->  {recode}")
+    except Exception:
+        print("[!] File cname_recode Not Found")                                                                                print("_" * 40)
+
+    print("[+] [TXT-RECODE]")
+    try:
+        txt_recode = dnd.resolver.resolve(domin_name, " TXT")                                                                       for data in txt_recode:
+            print(f"[+] {recode}")
+    except Exception:
+        print("[!] txt_recode File Not Found!")
+    print("_" * 40)
+
+    print("[+] [SOA_RECODE]")
+    try:
+        soa_recode = dns.resolver.resolve(domin_name, "SOA")
+        for data in soa_recode:
+            print(f"[+] {recode}")
+    except Exception:
+        print("[!] Soa_recode file server Not found!")
 
 except ValueError:
-    print("\n[!] Input Error: Please enter a valid domain address!")
-except socket.gaierror:
-    print("\n[!] Network Error: Host name could not be resolved! Check domain spelling or Internet connection.")
-except Exception as e:
-    print(f"\n[!] System Matrix Error: {e}")
+    print("[!] Error: Enter type valid domin_name")
 
-print("=========================================")
+except socket.gaierror:                                                                                                         print("\n[!] Network Error: Host name could not be resolved! Check domain spelling or Internet connection.")
+
+except Exception as e:
+    print(f"[!] System Mattix Error: {e}")
+
+print("_" * 40)
+print("[*] Mission Succesfully")
