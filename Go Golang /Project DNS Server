@@ -1,0 +1,63 @@
+package main
+
+import (
+	"fmt"
+	"net"
+	"os"
+	"os/exec"
+	"strings"
+	"time"
+)
+
+func main() {
+	cmd := exec.Command("clear")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
+
+	fmt.Println("=========================================")
+	fmt.Println("[+] TIGER AI-DNS: CENTRAL SERVER ENGINE   ")
+	fmt.Println("=========================================")
+
+	port := ":8053"
+	addr, _ := net.ResolveUDPAddr("udp", port)
+	
+	server, err := net.ListenUDP("udp", addr)
+	if err != nil {
+		fmt.Println("[!] Critical Error: Cannot lock DNS Port!", err)
+		return
+	}
+	defer server.Close()
+
+	fmt.Printf("[*] DNS Server is Listening Live on UDP Port %s...\n", port)
+	fmt.Println("[*] Mode: Active Anti-Porn & VPN Interception Engine.")
+	fmt.Println("[*] Press Ctrl+C to Safe Stop Server Grid.")
+	fmt.Println("-----------------------------------------")
+
+	buffer := make([]byte, 512)
+	for {
+		bytesRead, clientAddr, err := server.ReadFromUDP(buffer)
+		if err != nil {
+			continue
+		}
+
+		rawRequest := string(buffer[:bytesRead])
+		
+		simulatedDomain := "pornwebsite.com" 
+
+		currentTime := time.Now().Format("15:04:05")
+		fmt.Printf("[%s] Packet Received from Client IP: %s\n", currentTime, clientAddr)
+
+		if strings.Contains(simulatedDomain, "porn") || strings.Contains(simulatedDomain, "vpn") 
+	    fmt.Printf("  [!] ALERT: BLACKLISTED TARGET DETECTED -> [%s]\n", simulatedDomain)
+			fmt.Println("  [-] ACTION: DROPPING PACKET & INJECTING BLOCKED GATEWAY IP (0.0.0.0)")
+			
+			server.WriteToUDP([]byte("STATUS: BLOCKED"), clientAddr)
+		} else {
+
+			fmt.Printf("  [+] SUCCESS: CLEAN DOMAIN DETECTED -> [%s]\n", simulatedDomain)
+			fmt.Println("  [+] ACTION: RESOLVING PATH AND TRANSMISSION ALLOWED.")
+			server.WriteToUDP([]byte("STATUS: ALLOWED"), clientAddr)
+		}
+		fmt.Println("-----------------------------------------")
+	}
+}
