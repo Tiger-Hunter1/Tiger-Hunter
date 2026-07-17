@@ -1,0 +1,49 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"os/exec"
+)
+type TrafficFilte interface {
+	ApplyFilter() string
+}
+type PornRouter struct {
+	DomainName string
+}
+func (p PornRouter) ApplyFilter() string {
+	return "[!] ALERT [Porn-Router]: Blocked Domain -> " + p.DomainName
+}
+
+type VPNGuard struct {
+	ProxyIP string
+}
+func (v VPNGuard) ApplyFilter() string {
+	return "[!] ALERT [VPN-Guard]: Dropped Connection from Proxy IP -> " + v.ProxyIP
+}
+
+func triggerSecurityGate(filter TrafficFilter) {
+	fmt.Println("  [->] Live Firewall Action:", filter.ApplyFilter())
+}
+
+func main() {
+	cmd := exec.Command("clear")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
+
+	fmt.Println("=========================================")
+	fmt.Println("[+] GO-LANG INTERFACES: MULTI-GATE LAB   ")
+	fmt.Println("=========================================")
+
+	robot1 := PornRouter{DomainName: "unsafe_porn_domain.com"}
+	robot2 := VPNGuard{ProxyIP: "192.168.1.99"}
+
+	fmt.Println("[*] Triggering Gate 1 (Domain Inspection):")
+	triggerSecurityGate(robot1)
+	fmt.Println("-" * 55)
+
+	fmt.Println("[*] Triggering Gate 2 (IP Proxy Interception):")
+	triggerSecurityGate(robot2)
+	
+	fmt.Println("=========================================")
+}
