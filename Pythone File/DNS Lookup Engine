@@ -1,0 +1,82 @@
+import dns.resolver
+import socket
+import os
+
+os.system("clear")
+print("=" * 40)
+print("[+] Y4: POJECT TIGER DNS LOOKUP TOLL")
+print("=" * 40)
+
+try:
+    domin_name = input("Enter Target Website Or Domin name: ")
+    print(f"[+] String Global Dns Server Audit on target {domin_name}")
+    print("_" * 40)
+
+    _, _, ip_list = socket.gethostbyname_ex(domin_name)
+
+    for ip in ip_list:
+
+        print(f" [->] Live Target: {ip_list}")
+    print("_" * 40)
+
+    print("[+] [MX-RECORD] -core Target Email Gateway")
+
+    try:                                                                                                                            mx_recode = resolver.resolve(domin_name, "MX")
+        for data in mx_recode:
+
+            print("[+] [->] Mail Server (data.exchange) (peorit:(data.prefernce")
+    except Exception:
+        print("[!] MX Recode Server Not Found!")
+    print("_" * 40)
+
+    print("[+] [NS-RECODE] -core Target Aothuritetive Domin name")
+    try:
+        ns_recode = resolver.resolve(domin_name, "NS")
+        for data in ns_recode:
+            print(f"[+] [->] Hosting Name Server {data.domin}")
+    except Exception:
+        print("[!] NS Recode  File Server Not Found!")
+    print("_" * 40)
+
+    print("[+] [AAAA] Recode")
+    try:
+        aaaa_recode = dns.resolver.resolve(domin_name, "AAAA")                                                                      for data in aaaa_recode:
+            print(f"[+] -> {recode}")
+    except Exception:
+        print("[!] No aaaa File Recode")
+    print("_" * 40)
+
+    print("[+] file: [CNAME_RCODE]")
+    try:
+        cname_recode = dns.resolver.resolve(domin_name, "CNAME_RECODE")
+        for data in cname_recode:
+            print(f"[+] ->  {recode}")
+    except Exception:
+        print("[!] File cname_recode Not Found")                                                                                print("_" * 40)
+
+    print("[+] [TXT-RECODE]")
+    try:
+        txt_recode = dnd.resolver.resolve(domin_name, " TXT")                                                                       for data in txt_recode:
+            print(f"[+] {recode}")
+    except Exception:
+        print("[!] txt_recode File Not Found!")
+    print("_" * 40)
+
+    print("[+] [SOA_RECODE]")
+    try:
+        soa_recode = dns.resolver.resolve(domin_name, "SOA")
+        for data in soa_recode:
+            print(f"[+] {recode}")
+    except Exception:
+        print("[!] Soa_recode file server Not found!")
+
+except ValueError:
+    print("[!] Error: Enter type valid domin_name")
+
+except socket.gaierror:                                                                                                         print("\n[!] Network Error: Host name could not be resolved! Check domain spelling or Internet connection.")
+
+except Exception as e:
+    print(f"[!] System Mattix Error: {e}")
+
+print("_" * 40)
+print("[*] Mission Succesfully")
