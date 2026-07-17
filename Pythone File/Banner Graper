@@ -1,0 +1,40 @@
+import socket
+import os
+
+os.system("clear")
+print("=========================================")
+print("[+] CUSTOM BANNER GRABBER TOOL          ")
+print("=========================================")
+
+target = input("Enter Target IP or Domain: ")
+port = int(input("Enter Port (e.g., 80, 21, 22): "))
+
+print(f"\n[*] Connecting to {target} on port {port}...")
+print("-" * 50)
+
+try:
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.settimeout(3.0)  
+    
+    s.connect((target, port))
+  
+    if port == 80:
+        s.send(b"GET / HTTP/1.1\r\nHost: " + target.encode() + b"\r\n\r\n")
+    banner = s.recv(1024)
+
+    print("[+] Banner Found:")
+    print(banner.decode().strip())
+
+except socket.timeout:
+    print("[!] Error: Connection timed out. No banner responded.")
+
+except ConnectionRefusedError:
+    print("[!] Error: Connection refused. Port might be closed.")
+except Exception as e:
+    print(f"[!] An error occurred: {e}")
+
+finally:
+    s.close()
+
+print("-" * 50)
+print("[+] Task Completed!")
