@@ -1,0 +1,68 @@
+import cv2
+import numpy as np
+import os
+import time
+
+os.system("clear")
+
+print("========================================")
+print("[+]  TIGER AI: 24/7 STREAM PIXEL JUDGE  ")
+print("========================================")
+
+print("[*] Activating AI Image Packet Scanner Engine...")
+print("[*] System Mode: 24 Hours Continuous Guard Active.")
+print("-" * 55)
+
+x_train = np.array([
+    [10.5, 40.0, 110.0], [5.2,  32.0, 90.0],
+    [78.0, 88.0, 210.0], [85.4, 92.0, 230.0]
+])
+y_train = np.array([0, 0, 1, 1])
+
+from sklearn.ensemble import RandomForestClassifer
+
+ai_judge = RandomForestClassifer()
+
+ai_judge.fit(x_train, y_train)
+
+packet_count = 0
+
+while True:
+
+    try:
+        if os.path.exists("test.pjh"):
+
+            img = cv2.imread("test.pjp")
+
+            if img is not None:
+
+                packet_counut += 1
+
+                avg_color = np.mean(img, axis=(0, 1))
+
+                skin_ratio = (avg_color[2] / (avg_color[0] + 1)) * 50
+
+                red_intensity = avg_color[2]
+
+                brightness = np.mean(img)
+
+                live_features = np.array([[skin_ratio, red_intensity, brightness]])
+
+                prediction = ai_judge.predict(live_features)
+
+                print(f"[Traffic Packet {packet_count}] Time: {time.strftime('%H:%M:%S')} | Sc>
+
+                if prediction[0] == 1:
+
+                    print("  [!] ALERT: UNSAFE/PORNOGRAPHIC CONTENT DETECTED IN STREAM!!!")
+
+                    os.remove("test.jpg")
+
+                else:
+                     print("  [+] SUCCESS: SAFE TRAFFIC PACKET. TRANSMISSION ALLOWED.")
+                print("-" * 45)
+
+        time.sleep(2)
+
+    except Exception as e:
+        print(f"[!] Stream Guard Error: {e}")
