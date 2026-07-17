@@ -1,0 +1,42 @@
+import requests
+import os
+
+os.system("clear")
+print("=========================================")
+print("[+] Y4-PROJECT: TIGER HTTP CLIENT ENGINE ")
+print("=========================================")
+
+try:
+    target_url = input("[*] Enter Target URL (e.g. https://httpbin.org): ").strip()
+    print("-" * 55)
+    print(f"[*] Dispatching Advanced HTTP GET Request to: {target_url}...\n")
+  
+    headers = {"User-Agent": "Mozilla/5.0 (window NT 10.0; win64; x64)"}
+
+    response = requests.get(target_url, headers=headers, timeout=10)
+
+    print(f"[+] [STATUS CODE] : {response.status_code}")
+    if response.status_code == 200:
+        print("  [->] Connection State: 100% SUCCESS / OK")
+    elif response.status_code == 404:
+        print("  [!] Connection State: TARGET NOT FOUND (404)")
+    else:
+        print(f"  [!] Connection State: Server returned {response.status_code}")
+    print("-" * 55
+    print("[+] [SERVER HEADERS] - Technical Environment Metadata:")
+    for key, value in response.headers.items():
+        if key.lower() in ["server", "date", "content-type", "x-powered-by"]:
+            print(f"  [->] {key} : {value}")
+    print("-" * 55)
+
+    print("[+] [RESPONSE BODY SAMPLE] - First 300 Characters:")
+    print(response.text[:300].strip())
+
+except ValueError:
+    print("\n[!] Input Error: Please enter a valid HTTP address!")
+except requests.exceptions.RequestException as e:
+    print(f"\n[!] Network Failure: Could not establish socket line! Details: {e}")
+except Exception as e:
+    print(f"\n[!] System Matrix Error: {e}")
+
+print("\n=========================================")
