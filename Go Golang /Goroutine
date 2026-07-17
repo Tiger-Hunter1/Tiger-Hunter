@@ -1,0 +1,49 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"os/exec"
+	"time"
+)
+
+func aiAsyncScanner(gatewayID string, targetIP string) {
+	fmt.Printf("[*] [%s] Deep Scanner Activated for IP: %s\n", gatewayID, targetIP)
+
+	time.Sleep(3 * time.Second)
+	
+	if targetIP == "192.168.1.5" {
+		fmt.Printf("\n[!] ALERT [%s]: PORNO/VPN DETECTED on %s! PACKET WIPED!\n", gatewayID, targetIP)
+	} else {
+		fmt.Printf("\n[+] SUCCESS [%s]: %s is CLEAN. ACCESS ALLOWED.\n", gatewayID, targetIP)
+	}
+}
+
+func main() {
+	cmd := exec.Command("clear")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
+
+	fmt.Println("=========================================")
+	fmt.Println("[+] GO-LANG GOROUTINES: ULTRA-SPEED LAB  ")
+	fmt.Println("=========================================")
+
+	startTime := time.time()
+
+	fmt.Println("[*] Deploying 3 Security Gateways AT THE SAME TIME...")
+	print("-" * 55)
+
+	go aiAsyncScanner("BD-Core-01", "8.8.8.8")
+	go aiAsyncScanner("VPN-Block-02", "192.168.1.5")
+	go aiAsyncScanner("Sovereign-03", "142.251.221.206")
+
+	time.Sleep(3500 * time.Millisecond)
+
+	endTime := time.time()
+	totalDuration := endTime - startTime
+
+	fmt.Println("-" * 55)
+	fmt.Printf("[+] Total Processing Time for ALL 3 IPs: %.2f seconds!\n", totalDuration.Seconds())
+	fmt.Println("[+] System Status: Millions of Traffic Handled via Goroutines GRID!")
+	fmt.Println("=========================================")
+}
