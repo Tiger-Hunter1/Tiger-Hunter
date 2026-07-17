@@ -1,0 +1,49 @@
+import os
+
+os.system("clear")
+
+print("=============================")
+print("[+] PYTHON FILE HANDLING BOT ")
+print("=============================")
+
+print("[*] Simulating a sample database file inside Linux Server...")
+
+sample_content = """# Global DNS Server Logs
+127.0.0.1  goodsite.com  [ALLOWED]
+192.168.1.5  badpornwebsite.com  [ALERT]
+8.8.8.8  google.com  [ALLOWED]
+104.18.1.1  unsafe_malicious_domain.net  [ALERT]
+"""
+with open("server_traffic.txt", "w") as file:
+    file.write(sample_content)
+
+print("[+] File 'server_traffic.txt' Created Successfully via File Handle")
+print("_" * 55)
+print("[*] STARTING AI SECURITY SCANNING OVER SERVER HARDDISK")
+print("_" * 55)
+
+try:
+    if os.path.exists("server_traffic.txt"):
+        with open("server_traffic.txt", "r") as file
+            lines = file.readlines()
+
+        alert_count = 0
+
+        for line in lines:
+            if "badpornwebsite" in line or "unsafe_malicious" in line:
+                alert_count += 1
+                print(f"[!] DANGER DETECTED inside file line: {line.strip()}")
+
+        print("-" * 55)
+        print(f"[+] Scan Complete. Total {alert_count} Dangerous Packets Found.")
+
+        if alert_count > 0:
+            os.remove("server_traffic.txt")
+            print("[+] SUCCESS! Infected File Wiped Out from Server Disk!")
+    else:
+         print("[!] Error: Target log file not found on server.")
+
+except Exception as e:
+    print(f"[!] File Handling Error: {e}")
+
+print("[*] Mission Successfully Completed!")
