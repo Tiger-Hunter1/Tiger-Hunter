@@ -1,0 +1,43 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"os/exec"
+	"time"
+)
+
+func backgroundScanner(signalChan chan string) {
+	fmt.Println("[*] Background Scanner Thread Active. Watching Ports...")
+
+	time.Sleep(2 * time.Second)
+
+	signalChan <- "[!] ALERT: UNKNOWN INTERCEPTION ON PORT 53! VPN PROXY BLOCKED!"
+}
+
+func main() {
+	cmd := exec.Command("clear")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
+
+	fmt.Println("=========================================")
+	fmt.Println("[+] GO-LANG CHANNELS: LIVE WIRELESS LAB")
+	fmt.Println("=========================================")
+
+	securityPipe := make(chan string)
+
+	fmt.Println("[*] Launching Independent Background Scanner...")
+	go backgroundScanner(securityPipe)
+
+	fmt.Println("-------------------------------------------------------")
+
+	fmt.Println("[*] Central Dashboard is Waiting for Background Signal Streams...")
+
+	receivedAlert := <-securityPipe
+
+	fmt.Println()
+	fmt.Println("[+] SUCCESS! Data Received from Independent Core Thread:")
+	fmt.Println("  [->] Main Engine Log:", receivedAlert)
+
+	fmt.Println("=========================================")
+}
