@@ -1,0 +1,70 @@
+import socket
+import os
+
+os.system("clear")
+
+print("=========================================")
+print("[+] PROJECT 3: TIGER HTTP WEB SERVER     ")
+print("=========================================")
+
+HOST = '127.0.0.1'
+PORT = 8080
+
+try:
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind((HOST, PORT)
+
+    server_socket.listen(5)
+    print(f"[*] Tiger Server is LIVE and Running on http://{HOST}:{PORT}")
+    print("[*] Waiting for Browser Connection... Press Ctrl+C to Stop.")
+    print("-" * 55)
+
+    while True:
+        client_socket, client_address = server_socket.accept()
+        print(f"[+] Connection Established from User: {client_address}")
+        
+        request = client_socket.recv(1024).decode('utf-8')
+        
+        html_response = """HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+
+<html>
+<head>
+    <title>TIGER AI DASHBOARD</title>
+    <style>
+        body { 
+            background-color: #0d1117; 
+            color: #58a6ff; 
+            font-family: monospace; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0;
+        }
+        h1 { color: #238636; font-size: 40px; }
+        .box { 
+            border: 2px solid #21262d; 
+            padding: 30px; 
+            border-radius: 10px; 
+            background-color: #161b22;
+            text-align: center;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>TIGER AI SYSTEM</h1>
+        <p><b>[+] Status:</b> Server is 100% Secure and Live!</p>
+        <p><b>[+] Security Layer:</b> Porn-Blocker Core Active.</p>
+    </div>
+</body>
+</html>
+"""
+        # রেসপন্স পাঠানো এবং কানেকশন বন্ধ করা
+        client_socket.sendall(html_response.encode('utf-8'))
+        client_socket.close()
+
+except Exception as e:
+    print(f"[!] Server Error: {e}")
