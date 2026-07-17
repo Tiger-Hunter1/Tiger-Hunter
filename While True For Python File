@@ -1,4 +1,0 @@
-while True:
-   text = input("Hello Bro How are you(exit): ")
-   if text == "exit":
-       break
