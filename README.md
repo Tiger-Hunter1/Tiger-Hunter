@@ -2,7 +2,7 @@
 
 💻 Learning Go & Python & C & Rust 
 🌐 Networking & DNS
-🚀 Building Tiger AI-DNS
+🚀 Building DNS Server 
 📚 Learning every day
 
 ## Skills
