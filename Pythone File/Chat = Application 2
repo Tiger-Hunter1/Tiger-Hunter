@@ -1,0 +1,23 @@
+import socket
+import threading
+
+SERVER_IP = input("Server IP: ")
+PORT = 5000
+
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect((SERVER_IP, PORT))
+
+def receive():
+    while True:
+        try:
+            print(client.recv(1024).decode())
+        except:
+            break
+
+threading.Thread(target=receive, daemon=True).start()
+
+name = input("Your Name: ")
+
+while True:
+    msg = input()
+    client.send(f"{name}: {msg}".encode())
