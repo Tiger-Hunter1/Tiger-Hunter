@@ -1,6 +1,6 @@
 # Hi, I'm Tiger Hunter👋
 
-💻 Learning Go & Python
+💻 Learning Go & Python & C & Rust 
 🌐 Networking & DNS
 🚀 Building Tiger AI-DNS
 📚 Learning every day
