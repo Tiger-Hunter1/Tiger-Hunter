@@ -1,0 +1,70 @@
+import socket
+import time
+import os
+
+os.system("clear")
+print("=========================================")
+print("[+] Y4: PROJECT TIGER - DNS CACHE SYSTEM  ")
+print("=========================================")
+
+dns_cache = {
+    "google.com": "142.250.190.46",
+    "facebook.com": "157.240.22.35"
+}
+
+def resolve_with_cache(domain):
+    print(f"\n[*] Request Received for Domain: '{domain}'")
+
+    if domain in dns_cache:
+        start_time = time.time()
+        cached_ip = dns_cache[domain]
+        end_time = time.time()
+
+        print(f"[+] CACHE HIT! Found inside Local Memory.")
+        print(f"[->] Domain IP: {cached_ip}")
+        print(f"[->] Resolution Time: {(end_time - start_time) * 1000:.4f}")
+
+    else:
+        print(f"[-] CACHE MISS! Domain not found in local memory.")
+        print(f"[*] Fetching live from Global DNS Servers...")
+
+        try:
+            start_time = time.time()
+            live_ip = socket.gethostbyname(domain)
+            end_time = time.time()
+
+            dns_cache[domain] = live_ip
+
+            print(f"[+] Successfully Resolved Live!")
+            print(f"[->] Domain IP: {live_ip}")
+            print(f"[->] Resolution Time: {(end_time - start_time) * 1000:.2f}")
+
+        except socket.gaierror:
+            print("[!] Error: Host name could not be resolved by Global DNS.")
+
+resolve_with_cache("facebook.com")
+print("-" * 50)
+
+resolve_with_cache("github.com")
+print("-" * 50)
+
+resolve_with_cache("github.com")
+print("-" * 50)
+
+print("[!] WARNING: A Hacker is trying to inject Fake IP into Cache...")
+time.sleep(1)
+
+fake_ip = "192.168.1.100"
+print(f"[*] Hacker Injected -> facebook.com = {fake_ip}")
+
+if dns_cache["facebook.com"] != "157.240.22.35":
+    print("\n[!!!] CRITICAL SECURITY ALERT: DNS CACHE POISONING DETECTED !!!")
+    print(f"[-] TARGET FAKE IP DETECTED: {dns_cache['facebook.com']}")
+    print("[-] ACTION: FLUSHING AND CLEARING THE ENTIRE DNS CACHE MEMORY...")
+
+    dns_cache.clear()
+    print("[+] SUCCESS: DNS Cache Flushed Cleanly. Network Secured.")
+
+print("=" * 41)
+print("[*] DNS Cache Security Mission Accomplished!")
+print("=" * 41)
