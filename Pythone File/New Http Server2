@@ -1,0 +1,51 @@
+import http.server
+import socketserver
+import os
+
+os.system("clear")
+print("=========================================")
+print("[+] AI-DRIVEN CUSTOM HTTP WEB SERVER     ")
+print("=========================================")
+
+PORT = 8080
+
+print(f"[*] Initializing HTML Web Directory...")
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write("""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>HACKER WEBSERVER</title>
+        <style>
+            body { background-color: black; color: #00ff00; font-family: monospace; text-align: center; padding-top: 100px; }
+            h1 { font-size: 50px; text-shadow: 0 0 10px #00ff00; }
+            p { font-size: 20px; }
+        </style>
+    </head>
+    <body>
+        <h1>[+] SYSTEM CONTROLLED BY AI HACKER [+]</h1>
+        <p>Your custom Python HTTP Server is working perfectly!</p>
+        <p>Current Server Status: <span style='color:white;'>ONLINE</span></p>
+    </body>
+    </html>
+    """)
+handler = http.server.SimpleHTTPRequestHandler
+
+try:
+    with socketserver.TCPServer(("", PORT), handler) as httpd:
+        print(f"[+] SUCCESS: Web Server is now LIVE and Broadcasting!")
+        print(f"[->] LOCAL URL: http://127.0.0.1:{PORT}")
+        print(f"[*] Press CTRL+C to destroy the Web Server.")
+        print("-" * 55)
+        
+        httpd.serve_forever()
+
+except KeyboardInterrupt:
+    print("\n[-] Web Server Shutdown Signal Received.")
+except Exception as e:
+    print(f"[!] Server Error: {e}")
+
+print("-" * 55)
+print("[+] Web Server Session Closed. Security Intact.")
+print("=========================================")
