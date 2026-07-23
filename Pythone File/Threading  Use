@@ -1,0 +1,68 @@
+import socket
+import threading
+import time
+import os
+
+os.system("clear")
+
+print("====================================")
+print("[+] Y4 POJECT: TIGER ROOT DNS SERVER")
+print("==================================")
+
+ip = "127.0.0.1"
+port = 5300
+
+def dns_query(server_packet,client_address, raw_packet, thread_id):
+    print(f"\n[Thread #{thread_id}] Backround Thread spanwed for client: {client_address}")
+
+
+    try:
+        txt_id = (raw_packet [0] <<8) + raw_packet[1]
+
+        flag = (raw_packet [2] <<8) + raw_packet[3]
+
+        questions = (raw_packet [4] <<8) + raw_packet[4]
+
+        time.sleep(1)
+
+        print(f"[Thread #{thread_id}] [+] [RCF 1035] Tansaction ID : 0x{txt_id:X} ({txt_id})")
+        print(f"[Thread #{Thread_id}] [+] [RCF 1035] Tansaction ID : 0x{flag:X}")
+        print(f"[Thread #{Thread_ip}] [+] [RCF 1035] Tansaction ID : {questions}")
+        print(f"[Thread #{Thread_ip}) [-] Task Complete sending response back")
+
+        reply = b"TIGER PY THREAD SUCCESS"
+        server_socket.sendto(reply, client_address)
+
+    except Exception as e:
+        print("f[Thread #{thread_ip)] [!] Error processing packet: {e}")
+
+def root_dns():
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    server_socket.bind((ip, port))
+
+    print(f"[*] Python Multi-Threaded Root DNS Server is ONLINE on {ip}:{port}...")
+    print("[*] Concurrency Engine Active. Waiting for mass queries...")
+    print("-" * 55)
+
+    thread_counter = 0
+
+    try:
+        while True:
+            raw_packet, client_address = server_socket.recvfrom(1024)
+            thread_counter += 1
+
+            dns_thread = threading.Thread(
+                target=dns_query,
+                args=(server_socket, client_address, raw_packet, thread_counter)
+            )
+            dns_thread.daemon =True
+            dns_thread.start()
+
+    except KeyboardInterrupt:
+        print("\n[-] Root DNS Server Shutdown Signal Received. Closing tunnel...")
+    finally:
+        server_socket.close()
+        print("[+] Server Terminated Securely.")
+
+if __name__ == "__main__":
+    root_dns()
